@@ -14,8 +14,14 @@ jobs:
       - name: Checkout do código
         uses: actions/checkout@v3
 
-      - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      - name: Criar Dockerfile
+        run: |
+          echo 'FROM ubuntu:20.04' > Dockerfile
+          echo 'RUN echo "Olá do container!"' >> Dockerfile
 
+      - name: Build the Docker image
+        run: |
+          docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+          
       - name: Rodar script ou comando
         run: echo "Executando workflow agendado!"
